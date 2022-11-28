@@ -11,14 +11,14 @@ Proyek ini dibuat oleh kelompok C-11 yang beranggotakan:
 5. [Vania Azria Wardani](https://github.com/vaniaazr) (2106650380)
 
 ## Overview 🌐
-Pada **buzzar-id mobile**, yaitu versi mobile dari aplikasi web **buzzar-id**. **buzzar-id mobile** memiliki fitur yang sama dengan versi web dan dibuat lebih sederhana agar pengguna mobile dapat menjalankan aplikasi ini secara ringan dan mudah. Terdapat sedikit perbedaan pada aplikasi mobile dibandingkan web, yaitu pada sisi tampilan yang lebih dibuat khusus untuk perangkat dengan layar kecil dan beberapa penggunaan fitur yang berbeda dibandingkan dengan versi web, tetapi tetap memiliki tujuan yang sama.
+Pada **buzzar-id mobile**, yaitu versi mobile dari aplikasi web **buzzar-id**. **buzzar-id mobile** memiliki beberapa fitur yang mirip dengan versi web, tetapi dibuat lebih sederhana agar pengguna mobile dapat menjalankan aplikasi ini secara ringan dan mudah. Terdapat sedikit perbedaan pada aplikasi mobile dibandingkan web, yaitu pada sisi tampilan yang lebih dibuat khusus untuk perangkat dengan layar kecil dan beberapa fitur yang berbeda dibandingkan dengan versi web.
 <br><br>
 Pada **buzzar-id mobile**, terdapat lima fitur utama yang dapat diakses oleh pengguna, yaitu:
 - Fitur pertama yaitu fitur _showcase_ dimana berbagai UMKM yang telah memiliki cabang digital di tempat lain akan ditampilkan. Meskipun begitu, tidak menutup kemungkinan bagi UMKM yang belum memiliki cabang digital untuk dapat bergabung.
 - Fitur kedua yaitu fitur _news_ dimana pemilik UMKM dan _admin_ dapat mempublikasikan informasi menarik seperti promosi, dsb. yang nantinya dapat dilihat oleh para _customer_.
 - Fitur ketiga yaitu fitur obrolan dimana _customer_ dapat berbincang dengan pemilik UMKM. Hal ini biasanya sulit dilakukan karena jarang pemilik UMKM menyediakan layanan ini secara daring.
 - Fitur keempat yaitu fitur _products_ dimana _customer_ dapat melihat produk-produk yang ditawarkan oleh UMKM dalam berbagai cabang digital.
-- Fitur kelima yaitu fitur lomba dimana pemilik UMKM dapat melombakan sesuatu (misal: desain produk, tergantung lombanya) dan memperoleh _vote_ dari para _customer_ pada durasi _event_. Penyelenggara dari lomba adalah _admin_.
+- Fitur kelima yaitu fitur lomba dimana pengguna dapat melihat lomba apa saja yang sedang berlangsung dan terdapat fitur pencarian lomba. Khusus untuk admin dapat melihat lomba yang telah berakhir.
 
 ## Daftar Modul 🔍
 Berikut adalah daftar modul yang akan kami implementasikan.
@@ -45,14 +45,14 @@ Memiliki semua basic features dengan tambahan:
 1) Mempublikasikan berita
 2) Mengatur data dari UMKM yang dimiliki
 3) Menambahkan produk
-4) Ikutserta dalam perlombaan
+4) Fitur pencarian lomba
 5) Menambahkan dan menjawab diskusi
 
 #### **_Customer_**<br>
 Memiliki semua basic features dengan tambahan:
 1) Melakukan subskripsi UMKM news
 2) Memberikan rating terhadap UMKM
-3) Melakukan _voting_ dalam perlombaan
+3) Fitur pencarian lomba
 4) Menambahkan dan menjawab diskusi
 5) Melihat produk-produk UMKM
 
