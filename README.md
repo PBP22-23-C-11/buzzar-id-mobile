@@ -11,15 +11,14 @@ Proyek ini dibuat oleh kelompok C-11 yang beranggotakan:
 5. [Vania Azria Wardani](https://github.com/vaniaazr) (2106650380)
 
 ## Overview 🌐
-Forum G20 merupakan forum kerja sama multilateral yang terdiri dari 19 negara utama dan Uni Eropa. G20 dibentuk pada 1999 atas inisiasi anggota G7. Forum G20 merangkul negara maju dan berkembang untuk bersama-sama mengatasi krisis dan bertujuan mewujudkan pertumbuhan global yang kuat, berkelanjutan, seimbang, dan inklusif. Pada tahun 2022, Indonesia memegang presidensi G20. Tema Presidensi G20 Indonesia 2022 yang diusung adalah *Recover Together, Recover Stronger*. Dengan tema tersebut, Indonesia mengajak seluruh dunia untuk saling mendukung pulih bersama serta tumbuh lebih kuat dan berkelanjutan. 
+Pada **buzzar-id mobile**, yaitu versi mobile dari aplikasi web **buzzar-id**. **buzzar-id mobile** memiliki fitur yang sama dengan versi web dan dibuat lebih sederhana agar pengguna mobile dapat menjalankan aplikasi ini secara ringan dan mudah. Terdapat sedikit perbedaan pada aplikasi mobile dibandingkan web, yaitu pada sisi tampilan yang lebih dibuat khusus untuk perangkat dengan layar kecil dan beberapa penggunaan fitur yang berbeda dibandingkan dengan versi web, tetapi tetap memiliki tujuan yang sama.
 <br><br>
-Salah satu isu utama yang diusung pada G20 tahun ini adalah **Transformasi Digital**. Menerapkan digitalisasi terhadap tatanan ekonomi dapat memulihkannya serta menjadi lebih kuat, inklusif dan kolaboratif. Salah satu kunci dalam pemulihan tatanan ekonomi adalah dengan pemberdayaan UMKM untuk mengakselerasikannya. Kelompok kami mencoba untuk memperdayakan hal tersebut, maka kami usung aplikasi web yang bernama **buzzar-id**. **buzzar-id** adalah sebuah wadah bagi para pemilik UMKM dan pelanggan untuk berinteraksi dan mengenal karya wirausaha.
-<br><br>
-Pada **buzzar-id**, terdapat lima fitur utama yang dapat diakses oleh pengguna. Fitur pertama yaitu fitur _showcase_ dimana berbagai UMKM yang telah memiliki cabang digital di tempat lain akan ditampilkan. Meskipun begitu, tidak menutup kemungkinan bagi UMKM yang belum memiliki cabang digital untuk dapat bergabung. Fitur kedua yaitu fitur _news_ dimana pemilik UMKM dan _admin_ dapat mempublikasikan informasi menarik seperti promosi, dsb. yang nantinya dapat dilihat oleh para _customer_. Fitur ketiga yaitu fitur obrolan dimana _customer_ dapat berbincang dengan pemilik UMKM. Hal ini biasanya sulit dilakukan karena jarang pemilik UMKM menyediakan layanan ini secara daring. Fitur keempat yaitu fitur _products_ dimana _customer_ dapat melihat produk-produk yang ditawarkan oleh UMKM dalam berbagai cabang digital. Fitur kelima yaitu fitur lomba dimana pemilik UMKM dapat melombakan sesuatu (misal: desain produk, tergantung lombanya) dan memperoleh _vote_ dari para _customer_ pada durasi _event_. Umumnya penyelenggara dari lomba adalah _admin_.
-<br><br>
-Dengan adanya situs web ini, kami ingin masyarakat umum dapat lebih mudah dalam pencarian UMKM beserta informasi-informasinya sehingga UMKM-UMKM tersebut dapat berkembang dengan lebih baik.
-<br><br>
-Selain itu, terdapat juga buzzar-id mobile, yaitu versi mobile dari aplikasi web buzzar-id. buzzar-id mobile memiliki fitur yang sama dengan versi web dan dibuat lebih sederhana agar pengguna mobile dapat menjalankan aplikasi ini secara ringan dan mudah. Terdapat sedikit perbedaan pada aplikasi mobile dibandingkan web, yaitu pada sisi tampilan yang lebih dibuat khusus untuk perangkat dengan layar kecil dan beberapa penggunaan fitur yang berbeda dibandingkan dengan versi web, tetapi tetap memiliki tujuan yang sama.
+Pada **buzzar-id mobile**, terdapat lima fitur utama yang dapat diakses oleh pengguna, yaitu:
+- Fitur pertama yaitu fitur _showcase_ dimana berbagai UMKM yang telah memiliki cabang digital di tempat lain akan ditampilkan. Meskipun begitu, tidak menutup kemungkinan bagi UMKM yang belum memiliki cabang digital untuk dapat bergabung.
+- Fitur kedua yaitu fitur _news_ dimana pemilik UMKM dan _admin_ dapat mempublikasikan informasi menarik seperti promosi, dsb. yang nantinya dapat dilihat oleh para _customer_.
+- Fitur ketiga yaitu fitur obrolan dimana _customer_ dapat berbincang dengan pemilik UMKM. Hal ini biasanya sulit dilakukan karena jarang pemilik UMKM menyediakan layanan ini secara daring.
+- Fitur keempat yaitu fitur _products_ dimana _customer_ dapat melihat produk-produk yang ditawarkan oleh UMKM dalam berbagai cabang digital.
+- Fitur kelima yaitu fitur lomba dimana pemilik UMKM dapat melombakan sesuatu (misal: desain produk, tergantung lombanya) dan memperoleh _vote_ dari para _customer_ pada durasi _event_. Penyelenggara dari lomba adalah _admin_.
 
 ## Daftar Modul 🔍
 Berikut adalah daftar modul yang akan kami implementasikan.
@@ -58,8 +57,17 @@ Memiliki semua basic features dengan tambahan:
 5) Melihat produk-produk UMKM
 
 ## Alur Pengintegrasian dengan _Web Service_ 📡
-Aplikasi buzzar-id mobile akan meminta data json sesuai dengan url endpoint yang ingin diambil. Data json tersebut akan diubah ke dalam bentuk custom class yang disesuaikan dengan kebutuhan masing-masing fitur pada aplikasi. Masing-masing fitur akan mengolah data dalam bentuk custom class tersebut sesuai dengan kebutuhan dan tampilan yang diinginkan.
+- Pertama, tambahkan package http pada flutter terlebih dahulu dan import package tersebut pada file dart yang sesuai.
+- Ubah pengaturan pada file AndroidManifest.xml agar diizinkan menggunakan internet.
+- Buat terlebih dahulu custom class pada dart sehingga data json yang akan diambil dapat diolah dengan lebih mudah. Custom class akan berbeda-beda, tergantung dengan data yang akan diambil.
+- Buat class Future pada dart agar dapat berjalan secara asynchronous dan digunakan untuk mengambil data json.
+- Aplikasi buzzar-id mobile akan meminta data json sesuai dengan url endpoint yang ingin diambil menggunakan class Future yang telah dibuat sebelumnya. Pengambilan data tersebut dapat diimplementasikan dalam berbagai cara, salah satunya function.
+- Jika data json tersebut berhasil diambil dan tidak ada eror, ubah ke dalam bentuk custom class yang telah dibuat sebelumnya.
+- Masing-masing fitur akan mengolah data dalam bentuk custom class tersebut sesuai dengan kebutuhan dan tampilan yang diinginkan.
+- Jika ingin mengirim data ke server, langkah yang dilakukan mirip seperti meminta data, tetapi ubah method yang digunakan dan masukkan data yang perlu dikirim.
 
 ## Referensi 🌐
 - https://www.bi.go.id/id/g20/default.aspx
 - https://blog.healthchecks.io/2020/11/using-github-actions-to-run-django-tests/
+- https://docs.flutter.dev/cookbook/networking/fetch-data
+- https://www.geeksforgeeks.org/implementing-rest-api-in-flutter/
