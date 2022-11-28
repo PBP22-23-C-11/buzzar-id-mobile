@@ -33,7 +33,7 @@ Pengguna yang login dibagi menjadi 2, pemilik UMKM dan _customer_.
 
 ### **Pengguna Tidak _Logged-In_**<br>    
 Hanya memiliki _basic features_:
-1) Melihat berita 
+1) Membaca artikel berita
 2) Melihat _showcase_ UMKM
 3) Melihat produk-produk UMKM
 4) Melihat lomba dan sesuatu yang diikutsertakan ke dalam lomba
@@ -42,19 +42,21 @@ Hanya memiliki _basic features_:
 ### **Pengguna _Logged-In_**<br>
 #### **UMKM**<br>
 Memiliki semua basic features dengan tambahan:
-1) Mempublikasikan berita
-2) Mengatur data dari UMKM yang dimiliki
-3) Menambahkan produk
-4) Fitur pencarian lomba
-5) Menambahkan dan menjawab diskusi
+1) Mempublikasikan artikel berita
+2) Membaca dan menulis komen pada artikel berita
+3) Mengatur data dari UMKM yang dimiliki
+4) Menambahkan produk
+5) Fitur pencarian lomba
+6) Menambahkan dan menjawab diskusi
 
 #### **_Customer_**<br>
 Memiliki semua basic features dengan tambahan:
-1) Melakukan subskripsi UMKM news
-2) Memberikan rating terhadap UMKM
-3) Fitur pencarian lomba
-4) Menambahkan dan menjawab diskusi
-5) Melihat produk-produk UMKM
+1) Membaca dan menulis komen pada artikel berita
+2) Menyukai artikel berita
+3) Memberikan rating terhadap UMKM
+4) Fitur pencarian lomba
+5) Menambahkan dan menjawab diskusi
+6) Melihat produk-produk UMKM
 
 ## Alur Pengintegrasian dengan _Web Service_ 📡
 - Pertama, tambahkan package http pada flutter terlebih dahulu dan import package tersebut pada file dart yang sesuai.
