@@ -73,3 +73,5 @@ Memiliki semua basic features dengan tambahan:
 - https://blog.healthchecks.io/2020/11/using-github-actions-to-run-django-tests/
 - https://docs.flutter.dev/cookbook/networking/fetch-data
 - https://www.geeksforgeeks.org/implementing-rest-api-in-flutter/
+- https://danielllewellyn.medium.com/flutter-github-actions-for-a-signed-apk-fcdf9878f660
+- https://stackoverflow.com/questions/60942067/get-current-date-and-time-in-github-workflows
