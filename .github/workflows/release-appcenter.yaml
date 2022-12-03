@@ -1,0 +1,54 @@
+name: AppCenter Release
+
+on: 
+  push:
+    branches:
+      - main
+
+jobs:
+  appcenter-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y.%m.%d.%H.%M')"
+      
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Java Setup
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+      
+      - name: Flutter Setup
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      
+      - name: Flutter Install Packages
+        working-directory: ./buzzarid_mobile
+        run: flutter pub get
+      
+      - name: Create Key File
+        working-directory: ./buzzarid_mobile/android
+        env:
+          KEY_JKS: ${{ secrets.KEY_JKS }}
+        run: echo "$KEY_JKS" | base64 --decode > key.jks
+      
+      - name: Build APK
+        working-directory: ./buzzarid_mobile
+        env:
+          KEY_PASSWORD: ${{ secrets.ALIAS_PASSWORD }}
+          ALIAS_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: flutter build apk --release
+      
+      - name: Release
+        uses: wzieba/AppCenter-Github-Action@v1
+        with:
+          appName: PBP22-23-C-11/buzzar-id-mobile
+          token: ${{ secrets.APP_CENTER_TOKEN }}
+          group: Release
+          file: buzzarid_mobile/build/app/outputs/apk/release/app-release.apk
+          debug: false
