@@ -5,6 +5,11 @@
 Sebuah wadah bagi para pemilik UMKM dan pelanggan untuk berinteraksi dan mengenal karya wirausaha.<br> 
 Proyek ini dibuat untuk memenuhi Proyek Tengah Semester Mata Kuliah Pemrograman Berbasis Plaform oleh Fakultas Ilmu Komputer Universitas Indonesia pada Tahun Ajaran 2022/2023.
 
+## Download (APK) ⬇
+Aplikasi dapat diunduh melalui:
+1. [Microsoft Visual Studio App Center](https://install.appcenter.ms/users/emyr298/apps/buzzar-id-mobile/distribution_groups/release)
+2. [GitHub Release](https://github.com/PBP22-23-C-11/buzzar-id-mobile/releases)
+
 ## Anggota Kelompok 🙋🏻‍♂️🙋🏻‍♀️
 Proyek ini dibuat oleh kelompok C-11 yang beranggotakan:
 1. [Ahmad Hanif Adisetya](https://github.com/ahmadhanif3) (2106750603)
