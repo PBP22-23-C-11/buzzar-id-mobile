@@ -47,7 +47,7 @@ jobs:
       - name: Release
         uses: wzieba/AppCenter-Github-Action@v1
         with:
-          appName: PBP22-23-C-11/buzzar-id-mobile
+          appName: Emyr298/Buzzar-id-Mobile
           token: ${{ secrets.APP_CENTER_TOKEN }}
           group: Release
           file: buzzarid_mobile/build/app/outputs/apk/release/app-release.apk

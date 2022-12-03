@@ -1,3 +1,6 @@
+![GitHubRelease](https://github.com/PBP22-23-C-11/buzzar-id-mobile/actions/workflows/release-github.yaml/badge.svg)
+![AppCenterRelease](https://github.com/PBP22-23-C-11/buzzar-id-mobile/actions/workflows/release-appcenter.yaml/badge.svg)
+
 # buzzar-id mobile 🐝
 Sebuah wadah bagi para pemilik UMKM dan pelanggan untuk berinteraksi dan mengenal karya wirausaha.<br> 
 Proyek ini dibuat untuk memenuhi Proyek Tengah Semester Mata Kuliah Pemrograman Berbasis Plaform oleh Fakultas Ilmu Komputer Universitas Indonesia pada Tahun Ajaran 2022/2023.
@@ -75,3 +78,4 @@ Memiliki semua basic features dengan tambahan:
 - https://www.geeksforgeeks.org/implementing-rest-api-in-flutter/
 - https://danielllewellyn.medium.com/flutter-github-actions-for-a-signed-apk-fcdf9878f660
 - https://stackoverflow.com/questions/60942067/get-current-date-and-time-in-github-workflows
+- https://github.com/marketplace/actions/app-center
