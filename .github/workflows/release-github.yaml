@@ -1,0 +1,46 @@
+name: GitHub Release
+
+on: 
+  push:
+    branches:
+      - main
+
+jobs:
+  github-release:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+      
+    - name: Java Setup
+      uses: actions/setup-java@v1
+      with:
+        java-version: '12.x'
+    
+    - name: Flutter Setup
+      uses: subosito/flutter-action@v1.1.1
+      with:
+        channel: 'stable'
+    
+    - name: Flutter Install Packages
+      working-directory: ./buzzarid_mobile
+      run: flutter pub get
+    
+    - name: Create Key File
+      working-directory: ./buzzarid_mobile/android
+      env:
+        KEY_JKS: ${{ secrets.KEY_JKS }}
+      run: echo $KEY_JKS | base64 --decode > key.jks
+    
+    - name: Build APK
+      working-directory: ./buzzarid_mobile
+      env:
+        KEY_PASSWORD: ${{ secrets.ALIAS_PASSWORD }}
+        ALIAS_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+      run: flutter build apk --release
+    
+    - name: Release
+      uses: actions/upload-artifact@v1
+      with:
+        name: release-apk
+        path: buzzarid_mobile/build/app/outputs/apk/release/app-release.apk
