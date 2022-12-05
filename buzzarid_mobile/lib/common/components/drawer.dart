@@ -1,5 +1,6 @@
 import 'package:buzzarid_mobile/common/providers/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:buzzarid_mobile/showcase/pages/showcase.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 
@@ -111,6 +112,15 @@ class _AppDrawerState extends State<AppDrawer> {
               Navigator.pushReplacementNamed(context, '/');
             },
           ),
+          ListTile(
+            title: const Text("Showcase"),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ShowcasePage()),
+              );
+            },
+          )
         ],
       ),
     );
