@@ -40,6 +40,11 @@ class _InfoUMKMState extends State<InfoUMKM> {
       body: Column(
         children: [
           Text(widget.shopName),
+          Image.network(
+            widget.image,
+            width: MediaQuery.of(context).size.width,
+            height: 100,
+          ),
           Expanded(
             child: Align(
               alignment: FractionalOffset.bottomCenter,
