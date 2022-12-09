@@ -111,6 +111,12 @@ class _AppDrawerState extends State<AppDrawer> {
               Navigator.pushReplacementNamed(context, '/');
             },
           ),
+          ListTile(
+            title: const Text('Lomba'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/lomba');
+            },
+          ),
         ],
       ),
     );
