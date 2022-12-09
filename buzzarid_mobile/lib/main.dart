@@ -5,6 +5,7 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:buzzarid_mobile/common/page/home_page.dart';
 import 'package:buzzarid_mobile/common/page/login_page.dart';
+import 'package:buzzarid_mobile/news/pages/news_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -40,25 +41,9 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (BuildContext context) => const HomePage(),
           '/login': (BuildContext context) => const LoginPage(),
+          '/news': (BuildContext context) => const NewsPage(),
         },
       ),
     );
-    // return Provider(
-    //   create: (_) {
-    //     CookieRequest request = CookieRequest();
-    //     return request;
-    //   },
-    //   child: MaterialApp(
-    //     title: 'Buzzar-id',
-    //     theme: ThemeData(
-    //       primarySwatch: Colors.amber,
-    //     ),
-    //     initialRoute: '/',
-    //     routes: {
-    //       '/': (BuildContext context) => const HomePage(),
-    //       '/login': (BuildContext context) => const LoginPage(),
-    //     },
-    //   ),
-    // );
   }
 }

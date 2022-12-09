@@ -120,7 +120,13 @@ class _AppDrawerState extends State<AppDrawer> {
                 MaterialPageRoute(builder: (context) => const ShowcasePage()),
               );
             },
-          )
+          ),
+          ListTile(
+            title: const Text('News'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/news');
+            },
+          ),
         ],
       ),
     );
