@@ -1,5 +1,6 @@
 import 'package:buzzarid_mobile/common/models/user.dart';
 import 'package:buzzarid_mobile/common/providers/user_provider.dart';
+import 'package:buzzarid_mobile/news/pages/article_post_page.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
           '/': (BuildContext context) => const HomePage(),
           '/login': (BuildContext context) => const LoginPage(),
           '/news': (BuildContext context) => const NewsPage(),
+          '/news/post': (BuildContext context) => const ArticlePostPage(),
         },
       ),
     );

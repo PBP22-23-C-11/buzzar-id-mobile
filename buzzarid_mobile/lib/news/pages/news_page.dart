@@ -5,8 +5,7 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:buzzarid_mobile/common/components/drawer.dart';
 import 'package:buzzarid_mobile/news/utils/article_utils.dart';
 import 'package:buzzarid_mobile/news/components/icon_toggle_button.dart';
-
-import '../models/article.dart';
+import 'package:buzzarid_mobile/news/models/article.dart';
 
 class NewsPage extends StatefulWidget {
   const NewsPage({super.key});
@@ -23,9 +22,9 @@ class _NewsPageState extends State<NewsPage> {
     'Official': 'official',
   };
   String _title = '';
-  String titleTemp = '';
+  String _titleTemp = '';
   String _author = '';
-  String authorTemp = '';
+  String _authorTemp = '';
   String _sortByAttribute = 'date';
   String _sortByDirection = 'desc';
 
@@ -103,10 +102,10 @@ class _NewsPageState extends State<NewsPage> {
                             border: UnderlineInputBorder(),
                           ),
                           onChanged: (String? value) {
-                            titleTemp = value!;
+                            _titleTemp = value!;
                           },
                           onSaved: (String? value) {
-                            titleTemp = value!;
+                            _titleTemp = value!;
                           },
                         ),
                         TextFormField(
@@ -115,10 +114,10 @@ class _NewsPageState extends State<NewsPage> {
                             border: UnderlineInputBorder(),
                           ),
                           onChanged: (String? value) {
-                            authorTemp = value!;
+                            _authorTemp = value!;
                           },
                           onSaved: (String? value) {
-                            authorTemp = value!;
+                            _authorTemp = value!;
                           },
                         ),
                         const SizedBox(height: 8.0),
@@ -128,8 +127,8 @@ class _NewsPageState extends State<NewsPage> {
                           ),
                           onPressed: () {
                             setState(() {
-                              _title = titleTemp;
-                              _author = authorTemp;
+                              _title = _titleTemp;
+                              _author = _authorTemp;
                             });
                           },
                           child: const Text('Search'),
@@ -300,6 +299,17 @@ class _NewsPageState extends State<NewsPage> {
           ),
         ),
       ),
+      floatingActionButton: ((userProvider.user.type == 'UMKM' &&
+                  _category == 'UMKM') ||
+              (userProvider.user.type == 'Admin' && _category == 'Official'))
+          ? FloatingActionButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/news/post');
+              },
+              tooltip: 'Post Article',
+              child: const Icon(Icons.add),
+            )
+          : null,
     );
   }
 }
