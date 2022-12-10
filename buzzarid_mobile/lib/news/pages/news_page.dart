@@ -6,7 +6,6 @@ import 'package:buzzarid_mobile/common/components/drawer.dart';
 import 'package:buzzarid_mobile/news/utils/article_utils.dart';
 import 'package:buzzarid_mobile/news/components/icon_toggle_button.dart';
 
-import '../components/try_image.dart';
 import '../models/article.dart';
 
 class NewsPage extends StatefulWidget {
@@ -28,7 +27,7 @@ class _NewsPageState extends State<NewsPage> {
   String _author = '';
   String authorTemp = '';
   String _sortByAttribute = 'date';
-  String _sortByDirection = 'asc';
+  String _sortByDirection = 'desc';
 
   @override
   Widget build(BuildContext context) {
@@ -232,26 +231,61 @@ class _NewsPageState extends State<NewsPage> {
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: articleList.length,
                           itemBuilder: (_, index) => Card(
-                            child: Column(
-                              children: [
-                                // Image.network(articleList[index].image,
-                                //     errorBuilder: (BuildContext context,
-                                //         Object exception,
-                                //         StackTrace? stackTrace) {
-                                //   return const Text('Couldn\'t Load Image');
-                                // },
-                                //     width: double.infinity,
-                                //     height: 200.0,
-                                //     fit: BoxFit.fitWidth),
-                                TryImage(
-                                  url: articleList[index].image,
-                                  width: double.infinity,
-                                  height: 200.0,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                                Text(articleList[index].title),
-                                Text(articleList[index].createdAt),
-                              ],
+                            child: InkWell(
+                              onTap: () {},
+                              child: Column(
+                                children: [
+                                  Image.network(articleList[index].image,
+                                      errorBuilder: (BuildContext context,
+                                          Object exception,
+                                          StackTrace? stackTrace) {
+                                    return const Text('Couldn\'t Load Image');
+                                  },
+                                      width: double.infinity,
+                                      height: 200.0,
+                                      fit: BoxFit.cover),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              bottom: 8.0),
+                                          child: Text(
+                                            articleList[index].title,
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20.0,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                        Text(articleList[index].author.name),
+                                        Text(articleList[index].createdAt),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            RichText(
+                                              text: const TextSpan(
+                                                children: [
+                                                  WidgetSpan(
+                                                    child: Icon(Icons.thumb_up),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            const SizedBox(width: 8.0),
+                                            Text('${articleList[index].likes}')
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                           scrollDirection: Axis.vertical,
