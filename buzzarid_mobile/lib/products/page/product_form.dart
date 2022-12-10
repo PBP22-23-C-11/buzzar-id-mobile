@@ -171,7 +171,7 @@ class _MyProductFormPageState extends State<MyProductFormPage> {
                           "https://buzzar-id.up.railway.app/products/add/",
                           {
                             'UMKM_name': nameUMKM,
-                            'Product_name': nameProduct,
+                            'product_name': nameProduct,
                             'price': price,
                             'description': description,
                           },
