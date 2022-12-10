@@ -8,6 +8,8 @@ import 'package:buzzarid_mobile/lomba/model/lomba_data.dart';
 import 'package:buzzarid_mobile/lomba/utils/fetchdata.dart';
 import 'package:buzzarid_mobile/common/models/user.dart';
 import 'package:buzzarid_mobile/lomba/page/detail_lomba.dart';
+import 'package:buzzarid_mobile/lomba/utils/sendlomba.dart';
+import 'package:buzzarid_mobile/lomba/page/buat_lomba.dart';
 
 class LombaPage extends StatefulWidget {
     const LombaPage({super.key});
@@ -26,7 +28,7 @@ class _LombaPageState extends State<LombaPage> {
       });
     }
 
-    Padding makeCard(namaLomba, keterangan, tanggal, berjalan) {
+    Padding makeCard(namaLomba, keterangan, tanggal, berjalan, id) {
       return Padding(
         padding: const EdgeInsets.only(left: 10.0, right: 10.0),
         child: Card(
@@ -39,8 +41,11 @@ class _LombaPageState extends State<LombaPage> {
                   keterangan: keterangan,
                   tanggal: tanggal,
                   berjalan: berjalan,
+                  id: id.toString(),
                 )),
-              );
+              ).then((value) {
+                filteredLomba();
+              });
             },
             title: Text(namaLomba),
             trailing: Icon(Icons.keyboard_arrow_right),
@@ -61,6 +66,8 @@ class _LombaPageState extends State<LombaPage> {
         // drawer: const AppDrawer(),
         body: Column(
           children: <Widget>[
+
+            // Jika guest
             (userProvider.user.isGuest) ? 
               Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -72,6 +79,8 @@ class _LombaPageState extends State<LombaPage> {
                   ),
                 ),
               ) :
+
+              // Jika non guest
               Column(
                 children: <Widget>[
                   Padding(
@@ -85,7 +94,7 @@ class _LombaPageState extends State<LombaPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 16.0, left: 16.0, right: 16.0),
+                    padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
                     child: Row(
                       children: <Widget>[
                         Flexible(
@@ -111,7 +120,25 @@ class _LombaPageState extends State<LombaPage> {
                         ),
                       ]
                     )
-                  )
+                  ),
+                  (userProvider.user.type == 'Admin') ?
+                  Padding(padding: const EdgeInsets.only(bottom: 16.0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.amber,
+                      ),
+                      child: Text(
+                        "Buat Lomba Baru",
+                        style: TextStyle(fontSize: 20.0),
+                      ),
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => BuatLomba())).then((value) {
+                          filteredLomba();
+                        });
+                      },
+                    ),
+                  ) :
+                  Padding(padding: const EdgeInsets.only(left: 5.0),)
                 ]
               ),
             FutureBuilder(
@@ -139,59 +166,64 @@ class _LombaPageState extends State<LombaPage> {
                   // Jika bukan admin, hanya tampilkan yg berjalan
                   } else {
                     if (!(userProvider.user.type == 'Admin')) {
-                      return ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (_, index) {
-                          if (snapshot.data![index].fields.berjalan) {
+                      return Expanded(
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (_, index) {
+                            if (snapshot.data![index].fields.berjalan) {
 
-                            // Cek apakah pakai pencarian
-                            if (((snapshot.data![index].fields.namaLomba).toLowerCase()).contains((myController.text).toLowerCase())) {
-                              return makeCard(snapshot.data![index].fields.namaLomba,
-                                snapshot.data![index].fields.keterangan,
-                                snapshot.data![index].fields.tanggal,
-                                snapshot.data![index].fields.berjalan
-                              );
-                              
+                              // Cek apakah pakai pencarian
+                              if (((snapshot.data![index].fields.namaLomba).toLowerCase()).contains((myController.text).toLowerCase())) {
+                                return makeCard(snapshot.data![index].fields.namaLomba,
+                                  snapshot.data![index].fields.keterangan,
+                                  snapshot.data![index].fields.tanggal,
+                                  snapshot.data![index].fields.berjalan,
+                                  snapshot.data![index].pk,
+                                );
+                                
+                              // Kembalikan element kosong
+                              } else {
+                                return Padding(
+                                  padding: const EdgeInsets.only(bottom: 0.0),
+                                );
+                              }
+
                             // Kembalikan element kosong
                             } else {
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 0.0),
                               );
                             }
-
-                          // Kembalikan element kosong
-                          } else {
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 0.0),
-                            );
-                          }
-                        } 
+                          } 
+                        )
                       );
                     
                     // jika admin, tampilin semua
                     } else {
-                      return ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (_, index) {
-                          
-                          // Cek apakah pakai pencarian
-                          if (((snapshot.data![index].fields.namaLomba).toLowerCase()).contains((myController.text).toLowerCase())) {
-                            return makeCard(snapshot.data![index].fields.namaLomba,
-                              snapshot.data![index].fields.keterangan,
-                              snapshot.data![index].fields.tanggal,
-                              snapshot.data![index].fields.berjalan
-                            );
-                          
-                          // Kembalikan element kosong
-                          } else {
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 0.0),
-                            );
+                      return Expanded(
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (_, index) {
+                            
+                            // Cek apakah pakai pencarian
+                            if (((snapshot.data![index].fields.namaLomba).toLowerCase()).contains((myController.text).toLowerCase())) {
+                              return makeCard(snapshot.data![index].fields.namaLomba,
+                                snapshot.data![index].fields.keterangan,
+                                snapshot.data![index].fields.tanggal,
+                                snapshot.data![index].fields.berjalan,
+                                snapshot.data![index].pk,
+                              );
+                            
+                            // Kembalikan element kosong
+                            } else {
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 0.0),
+                              );
+                            }
                           }
-                        }
-                        
+                        )
                       );
                     }
                   }

@@ -41,7 +41,7 @@ class _HomeLombaState extends State<HomeLomba> {
                     )
                   ),
                   Flexible(
-                    child: new Text("Silahkan Login terlebih dahulu untuk mengakses seluruh fitur yang atau hanya lihat lomba yang sedang berlangsung."),
+                    child: new Text("Silahkan Login terlebih dahulu untuk mengakses seluruh fitur yang tersedia atau hanya lihat lomba yang sedang berlangsung."),
                   ),
                   Container(  
                     padding: const EdgeInsets.only(top: 32),
