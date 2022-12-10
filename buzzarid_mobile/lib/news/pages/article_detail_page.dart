@@ -6,7 +6,9 @@ import 'package:buzzarid_mobile/news/utils/article_utils.dart';
 import 'package:buzzarid_mobile/news/models/article.dart';
 
 class ArticleDetailPage extends StatefulWidget {
-  const ArticleDetailPage({super.key});
+  const ArticleDetailPage({super.key, required this.id});
+
+  final int id;
 
   @override
   State<ArticleDetailPage> createState() => _ArticleDetailPageState();

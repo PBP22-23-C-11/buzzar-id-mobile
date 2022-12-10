@@ -1,4 +1,5 @@
 import 'package:buzzarid_mobile/common/providers/user_provider.dart';
+import 'package:buzzarid_mobile/news/pages/article_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
@@ -231,7 +232,14 @@ class _NewsPageState extends State<NewsPage> {
                           itemCount: articleList.length,
                           itemBuilder: (_, index) => Card(
                             child: InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ArticleDetailPage(
+                                          id: articleList[index].id)),
+                                );
+                              },
                               child: Column(
                                 children: [
                                   Image.network(articleList[index].image,
