@@ -1,4 +1,5 @@
 import 'package:buzzarid_mobile/common/components/drawer.dart';
+import 'package:buzzarid_mobile/products/page/product_show.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
@@ -27,9 +28,22 @@ class _MyProductFormPageState extends State<MyProductFormPage> {
   Widget build(BuildContext context) {
     final request = context.read<CookieRequest>();
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Product Form"),
-      ),
+      appBar: AppBar(title: const Text("Product Form"), actions: <Widget>[
+        Padding(
+            padding: const EdgeInsets.only(right: 20.0),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const MyProductPage()));
+              },
+              child: const Icon(
+                Icons.cancel_outlined,
+                size: 26.0,
+              ),
+            )),
+      ]),
       drawer: const AppDrawer(),
       body: Form(
           key: _formKey,

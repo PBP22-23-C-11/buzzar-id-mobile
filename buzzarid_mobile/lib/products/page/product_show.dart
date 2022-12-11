@@ -1,8 +1,10 @@
 import 'package:buzzarid_mobile/common/components/drawer.dart';
+import 'package:buzzarid_mobile/common/providers/user_provider.dart';
 import 'package:buzzarid_mobile/products/other/product_fetch.dart';
 import 'package:buzzarid_mobile/products/page/product_detail.dart';
 import 'package:buzzarid_mobile/products/page/product_form.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MyProductPage extends StatefulWidget {
   const MyProductPage({super.key});
@@ -14,6 +16,7 @@ class MyProductPage extends StatefulWidget {
 class _MyProductPageState extends State<MyProductPage> {
   @override
   Widget build(BuildContext context) {
+    final userProvider = context.watch<UserProvider>();
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
@@ -45,39 +48,46 @@ class _MyProductPageState extends State<MyProductPage> {
                       fontSize: 8.0),
                 ),
                 const SizedBox(height: 20),
-                ElevatedButton.icon(
-                  icon: const Icon(Icons.add_rounded),
-                  label: const Text("Add your Product"),
-                  style: ElevatedButton.styleFrom(
-                    onPrimary: Colors.white,
-                    primary: Colors.amber,
-                    padding: const EdgeInsets.all(18.0),
+                if (userProvider.user.type == 'UMKM' ||
+                    userProvider.user.type == 'Admin') ...[
+                  ElevatedButton.icon(
+                    icon: const Icon(Icons.add_rounded),
+                    label: const Text("Add your Product"),
+                    style: ElevatedButton.styleFrom(
+                      onPrimary: Colors.white,
+                      primary: Colors.amber,
+                      padding: const EdgeInsets.all(18.0),
+                    ),
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MyProductFormPage()),
+                      );
+                    },
                   ),
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => MyProductFormPage()),
-                    );
-                  },
-                ),
+                ],
                 const SizedBox(height: 20),
-                ElevatedButton.icon(
-                  icon: const Icon(Icons.featured_play_list_rounded),
-                  label: const Text("Our UMKM's Product"),
-                  style: ElevatedButton.styleFrom(
-                    onPrimary: Colors.white,
-                    primary: Colors.amber,
-                    padding: const EdgeInsets.all(18.0),
+                if (userProvider.user.type == 'UMKM' ||
+                    userProvider.user.type == 'Customer' ||
+                    userProvider.user.type == 'Admin') ...[
+                  ElevatedButton.icon(
+                    icon: const Icon(Icons.featured_play_list_rounded),
+                    label: const Text("Our UMKM's Product"),
+                    style: ElevatedButton.styleFrom(
+                      onPrimary: Colors.white,
+                      primary: Colors.amber,
+                      padding: const EdgeInsets.all(18.0),
+                    ),
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MyProductDetailPage()),
+                      );
+                    },
                   ),
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => MyProductDetailPage()),
-                    );
-                  },
-                ),
+                ],
               ],
             )));
   }
