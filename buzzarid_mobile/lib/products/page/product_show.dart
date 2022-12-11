@@ -26,8 +26,16 @@ class _MyProductPageState extends State<MyProductPage> {
         body: Container(
             padding: const EdgeInsets.all(20.0),
             width: width,
-            child: Column(
+            child: SingleChildScrollView(
+                child: Column(
               children: [
+                const SizedBox(height: 10),
+                const Icon(
+                  Icons.shopping_cart_outlined,
+                  color: Colors.amber,
+                  size: 90,
+                ),
+                const SizedBox(height: 20),
                 const Text(
                   "UMKM's Product",
                   textAlign: TextAlign.center,
@@ -39,13 +47,23 @@ class _MyProductPageState extends State<MyProductPage> {
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  "UMKM are productive businesses owned by individuals or business entities that have met the requirements as micro businesses.  Basically, UMKM are businesses carried out by individuals, groups, small business entities, and households.  The existence of UMKM in Indonesia is taken into account, because they contribute greatly to economic growth. If you're logged in, you can see all products from our UMKM. And if you're an UMKM, you can also add your products here!",
+                  "UMKM are productive businesses owned by individuals or business entities that have met the requirements as micro businesses.  Basically, UMKM are businesses carried out by individuals, groups, small business entities, and households.  The existence of UMKM in Indonesia is taken into account, because they contribute greatly to economic growth.",
                   textAlign: TextAlign.center,
                   textScaleFactor: 2.0,
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.w400,
-                      fontSize: 8.0),
+                      fontSize: 7.5),
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  "This page is useful for UMKM to display their products infront of online customers. If you're logged in, you can see all products from our UMKM. And if you're an UMKM, you can place your products here!",
+                  textAlign: TextAlign.center,
+                  textScaleFactor: 2.0,
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 7.5),
                 ),
                 const SizedBox(height: 20),
                 if (userProvider.user.type == 'UMKM' ||
@@ -88,7 +106,8 @@ class _MyProductPageState extends State<MyProductPage> {
                     },
                   ),
                 ],
+                const SizedBox(height: 20),
               ],
-            )));
+            ))));
   }
 }

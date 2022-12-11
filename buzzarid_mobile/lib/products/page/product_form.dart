@@ -24,6 +24,17 @@ class _MyProductFormPageState extends State<MyProductFormPage> {
   int price = 0;
   String description = "";
 
+  void product_post(request, nameUMKM, nameProduct, price, description) async {
+    await request
+        .post("https://buzzar-id.up.railway.app/products/add-flutter/", {
+      "UMKM_name": nameUMKM,
+      "product_name": nameProduct,
+      "price": price,
+      "description": description,
+    });
+    print("Over here");
+  }
+
   @override
   Widget build(BuildContext context) {
     final request = context.read<CookieRequest>();
@@ -129,7 +140,7 @@ class _MyProductFormPageState extends State<MyProductFormPage> {
                             },
                             onSaved: (String? value) {
                               setState(() {
-                                price = int.parse(value!);
+                                price = value! as int;
                               });
                             },
                             validator: (String? value) {
@@ -173,25 +184,24 @@ class _MyProductFormPageState extends State<MyProductFormPage> {
                 Align(
                     alignment: Alignment.bottomCenter,
                     child: ElevatedButton.icon(
-                      icon: const Icon(Icons.save_alt_rounded),
-                      label: const Text("Save"),
-                      style: ElevatedButton.styleFrom(
-                        onPrimary: Colors.white,
-                        primary: Colors.amber,
-                        padding: const EdgeInsets.all(20.0),
-                      ),
-                      onPressed: () async {
-                        final response = await request.post(
-                          "https://buzzar-id.up.railway.app/products/add/",
-                          {
-                            'UMKM_name': nameUMKM,
-                            'product_name': nameProduct,
-                            'price': price,
-                            'description': description,
-                          },
-                        );
-                      },
-                    )),
+                        icon: const Icon(Icons.save_alt_rounded),
+                        label: const Text("Save"),
+                        style: ElevatedButton.styleFrom(
+                          onPrimary: Colors.white,
+                          primary: Colors.amber,
+                          padding: const EdgeInsets.all(20.0),
+                        ),
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            product_post(
+                              request,
+                              nameUMKM,
+                              nameProduct,
+                              price.toString(),
+                              description,
+                            );
+                          }
+                        })),
               ]))),
     );
   }
