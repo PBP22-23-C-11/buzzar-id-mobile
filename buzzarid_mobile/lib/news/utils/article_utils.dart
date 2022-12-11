@@ -3,12 +3,11 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 
 Future<List<Article>> fetchArticleList(CookieRequest request, String title,
     String author, String sortBy, String category) async {
-  dynamic response;
   List<Article> articleList = [];
   try {
     String url =
         'https://buzzar-id.up.railway.app/news/api/article?title=$title&sort_by=$sortBy&category=$category&umkm=$author&umkm_type=name';
-    response = await request.get(url);
+    final response = await request.get(url);
     for (var article in response['articles']) {
       articleList.add(Article.fromJson(article));
     }
@@ -27,9 +26,87 @@ Future<Article?> postArticle(
       'body': body,
       'image': imageUrl,
     });
-    print(response);
     return Article.fromJson(response);
   } catch (error) {
     return null;
   }
+}
+
+Future<List<Article>> getArticleById(CookieRequest request, int id) async {
+  List<Article> articleList = []; // length = 1 if available, 0 if not
+  try {
+    String url = 'https://buzzar-id.up.railway.app/news/api/articles/$id/';
+    dynamic response = await request.get(url);
+    articleList.add(Article.fromJson(response));
+  } catch (error) {
+    // Pass
+  }
+  return articleList;
+}
+
+Future<bool> deleteArticleById(CookieRequest request, int id) async {
+  try {
+    String url =
+        'https://buzzar-id.up.railway.app/news/api/articles/$id/delete/';
+    await request.get(url);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+Future<bool> toggleLike(CookieRequest request, int articleId) async {
+  try {
+    String url =
+        'https://buzzar-id.up.railway.app/news/api/articles/$articleId/likes/toggle/';
+    final response = await request.get(url);
+    if (response.containsKey('success')) {
+      return true;
+    }
+  } catch (error) {
+    // Pass
+  }
+  return false;
+}
+
+Future<dynamic> checkLike(CookieRequest request, int articleId) async {
+  try {
+    String url =
+        'https://buzzar-id.up.railway.app/news/api/articles/$articleId/likes/';
+    final response = await request.get(url);
+    if (response.containsKey('liked')) {
+      return response;
+    }
+  } catch (error) {
+    // Pass
+  }
+  return null;
+}
+
+Future<bool> toggleSubscribe(CookieRequest request, int authorId) async {
+  try {
+    String url =
+        'https://buzzar-id.up.railway.app/news/api/subscribes/$authorId/toggle/';
+    final response = await request.get(url);
+    if (response.containsKey('status')) {
+      return true;
+    }
+  } catch (error) {
+    // Pass
+  }
+  return false;
+}
+
+Future<dynamic> checkSubscribe(CookieRequest request, int authorId) async {
+  try {
+    String url =
+        'https://buzzar-id.up.railway.app/news/api/subscribes/$authorId/';
+    final response = await request.get(url);
+    if (response.containsKey('subscribed')) {
+      return response;
+    }
+  } catch (error) {
+    // Pass
+  }
+  return null;
 }
