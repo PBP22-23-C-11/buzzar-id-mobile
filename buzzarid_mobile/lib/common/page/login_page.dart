@@ -119,7 +119,6 @@ class _LoginPageState extends State<LoginPage> {
                   }
                   if (!mounted) return;
                   if (request.loggedIn) {
-                    print(response);
                     userProvider.user = User.fromJson(response['data']);
                     Navigator.pop(context);
                   } else {
