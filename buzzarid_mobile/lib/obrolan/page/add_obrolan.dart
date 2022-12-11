@@ -1,4 +1,5 @@
-// ignore_for_file: constant_identifier_names, use_build_context_synchronously, depend_on_referenced_packages, no_logic_in_create_state
+// ignore_for_file: constant_identifier_names
+import 'package:buzzarid_mobile/common/providers/user_provider.dart';
 import 'package:buzzarid_mobile/obrolan/page/obrolan_home.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert' as convert;
@@ -6,19 +7,14 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
 class AddObrolanPage extends StatefulWidget {
-  const AddObrolanPage({Key? key, required this.username}) : super(key: key);
+  const AddObrolanPage({Key? key}) : super(key: key);
   static const ROUTE_NAME = '/add-obrolan';
 
-  final String username;
   @override
-  State<AddObrolanPage> createState() =>
-      _ObrolanHomePageState(username: username);
+  State<AddObrolanPage> createState() => _ObrolanHomePageState();
 }
 
 class _ObrolanHomePageState extends State<AddObrolanPage> {
-  _ObrolanHomePageState({required this.username});
-  final String username;
-
   final _formKey = GlobalKey<FormState>();
 
   // Saved variables to be submitted
@@ -29,6 +25,7 @@ class _ObrolanHomePageState extends State<AddObrolanPage> {
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
+    final username = context.watch<UserProvider>().user.username;
 
     return Scaffold(
       appBar: AppBar(
@@ -129,37 +126,49 @@ class _ObrolanHomePageState extends State<AddObrolanPage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 12.0),
-                  child: TextButton(
+                  child: ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor:
                           MaterialStateProperty.all(const Color(0xFF0B36A8)),
                     ),
                     onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        final response = await request.postJson(
-                            "https://buzzar-id.up.railway.app/obrolan/add-disc-flutter",
-                            convert.jsonEncode(<String, String>{
-                              'username': username,
-                              'title': _typedTitle,
-                              'toWho': _typedToWho,
-                              'message': _typedMessage,
-                            }));
-                        if (response['status'] == 'success') {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content: Text("Discussion saved successfully!"),
-                          ));
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const ObrolanHomePage()),
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content: Text("An Error Occured"),
-                          ));
+                      if (username != "guest") {
+                        if (_formKey.currentState!.validate()) {
+                          await request
+                              .postJson(
+                                  "https://buzzar-id.up.railway.app/obrolan/add-disc-flutter",
+                                  convert.jsonEncode(<String, String>{
+                                    'username': username,
+                                    'title': _typedTitle,
+                                    'toWho': _typedToWho,
+                                    'message': _typedMessage,
+                                  }))
+                              .then((value) {
+                            if (!mounted) return;
+                            if (value != null) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text("Discussion saved successfully!"),
+                              ));
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ObrolanHomePage()),
+                              );
+                            } else {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text("An Error Occured"),
+                              ));
+                            }
+                          });
                         }
+                      } else {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text("Please login to add discussion"),
+                        ));
                       }
                     },
                     child: const Text(

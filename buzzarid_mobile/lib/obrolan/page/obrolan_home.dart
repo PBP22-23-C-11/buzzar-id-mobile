@@ -19,6 +19,8 @@ class ObrolanHomePage extends StatefulWidget {
 class _ObrolanHomePageState extends State<ObrolanHomePage> {
   @override
   Widget build(BuildContext context) {
+    final username = context.watch<UserProvider>().user.username;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Obrolan'),
@@ -86,8 +88,7 @@ class _ObrolanHomePageState extends State<ObrolanHomePage> {
                         ),
                       ),
                       const Spacer(),
-                      if (context.watch<UserProvider>().user.username !=
-                          'guest') ...[
+                      if (username != 'guest') ...[
                         FloatingActionButton(
                           heroTag: null,
                           backgroundColor: Colors.green,
@@ -95,11 +96,7 @@ class _ObrolanHomePageState extends State<ObrolanHomePage> {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => AddObrolanPage(
-                                      username: context
-                                          .watch<UserProvider>()
-                                          .user
-                                          .username)),
+                                  builder: (context) => const AddObrolanPage()),
                             );
                           },
                           tooltip: 'Add Discussion',
