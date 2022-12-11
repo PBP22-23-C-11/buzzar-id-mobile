@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class IconValueButton extends StatelessWidget {
   const IconValueButton(
       {super.key,
+      required this.color,
       required this.icon,
       required this.value,
       required this.onPressed});
 
+  final Color color;
   final Icon icon;
   final String value;
   final void Function()? onPressed;
@@ -14,6 +16,9 @@ class IconValueButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: color,
+      ),
       onPressed: onPressed,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

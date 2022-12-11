@@ -72,6 +72,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           response = await request.logout(
                               'https://buzzar-id.up.railway.app/api/logout/');
                           userProvider.user = User(
+                              id: 0,
                               username: 'guest',
                               name: 'Guest',
                               type: 'guest',

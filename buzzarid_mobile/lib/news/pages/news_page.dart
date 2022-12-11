@@ -1,6 +1,5 @@
 import 'package:buzzarid_mobile/common/providers/user_provider.dart';
 import 'package:buzzarid_mobile/news/components/article_box.dart';
-import 'package:buzzarid_mobile/news/components/image_network.dart';
 import 'package:buzzarid_mobile/news/pages/article_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +22,7 @@ class _NewsPageState extends State<NewsPage> {
   Map<String, String> categoryMap = {
     'UMKM': 'umkm',
     'Official': 'official',
+    'Subscribed': 'subscribed',
   };
   String _title = '';
   String _titleTemp = '';
@@ -92,6 +92,30 @@ class _NewsPageState extends State<NewsPage> {
                         ),
                       ),
                     ),
+                    (userProvider.user.type == 'Customer')
+                        ? Padding(
+                            padding:
+                                const EdgeInsets.only(left: 4.0, right: 4.0),
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                backgroundColor: _category == 'Subscribed'
+                                    ? Colors.amber
+                                    : Colors.transparent,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _category = 'Subscribed';
+                                });
+                              },
+                              child: const Text(
+                                'Subscribed',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          )
+                        : Container(),
                   ],
                 ),
               ),
@@ -255,7 +279,9 @@ class _NewsPageState extends State<NewsPage> {
                                     return ArticleDetailPage(
                                         id: articleList[index].id);
                                   }),
-                                );
+                                ).then((value) {
+                                  setState(() {});
+                                });
                               },
                               imageUrl: articleList[index].image,
                               title: articleList[index].title,
