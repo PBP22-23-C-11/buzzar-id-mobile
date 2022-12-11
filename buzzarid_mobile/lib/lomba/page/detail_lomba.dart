@@ -2,12 +2,14 @@ import 'package:buzzarid_mobile/common/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 import 'package:buzzarid_mobile/lomba/model/peserta_lomba.dart';
 import 'package:buzzarid_mobile/lomba/utils/fetchpeserta.dart';
 import 'package:buzzarid_mobile/lomba/utils/updatelomba.dart';
-import 'package:buzzarid_mobile/lomba/utils/votelomba.dart';
 import 'package:buzzarid_mobile/common/models/user.dart';
+import 'package:buzzarid_mobile/lomba/page/daftar_lomba.dart';
 
 class MyDetailPage extends StatefulWidget {
   MyDetailPage({
@@ -154,10 +156,23 @@ class _MyDetailPageState extends State<MyDetailPage> {
                                   (IconButton(
                                     icon: const Icon(Icons.thumb_up),
                                     color: Colors.blue,
-                                    onPressed: () {
-                                      voteLomba(userProvider.user.username, snapshot.data![index].pk.toString());
+                                    onPressed: () async {
+                                      var map = new Map<String, dynamic>();
+                                      map['customer'] = userProvider.user.username;
+
+                                      final response = await http.post(
+                                        Uri.parse('https://buzzar-id.up.railway.app/lomba/flutter/vote/' + snapshot.data![index].pk.toString()),
+                                        body: map,
+                                      );
+
+                                      final snackBar = SnackBar(
+                                        content: Text(response.body),
+                                      );
+
+                                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
                                       updatePeserta();
-                                    },)) :
+                                    })) :
                                   (Text('')),
                               ),
                             ),
@@ -180,8 +195,31 @@ class _MyDetailPageState extends State<MyDetailPage> {
               updateLomba(widget.id.toString());
               Navigator.pop(context);
             },
+          ) : (userProvider.user.type == 'UMKM') ? 
+          TextButton(
+            child: Text(
+              "Daftar Lomba",
+              style: TextStyle(color: Colors.black),
+            ),
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.amber),
+              ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => DaftarLomba(
+                  id: widget.id,
+                )),
+              ).then((value) {
+                updatePeserta();
+              });
+            },
           ) :
           Container(),
+
+          floatingActionButtonLocation: (userProvider.user.type == 'UMKM') ?
+            FloatingActionButtonLocation.centerFloat : 
+            FloatingActionButtonLocation.endFloat,
       );
     }
 }
