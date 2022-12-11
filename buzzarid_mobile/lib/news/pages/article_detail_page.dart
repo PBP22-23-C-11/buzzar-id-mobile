@@ -96,6 +96,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                                           if (snapshot.data == null ||
                                               !snapshot.hasData) {
                                             return const IconValueButton(
+                                              color: Colors.amber,
                                               icon:
                                                   Icon(Icons.thumb_up_outlined),
                                               value: '0',
@@ -105,6 +106,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                                             bool isLiked =
                                                 snapshot.data['liked'];
                                             return IconValueButton(
+                                              color: Colors.amber,
                                               icon: (isLiked)
                                                   ? const Icon(Icons.thumb_up)
                                                   : const Icon(
@@ -138,6 +140,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                                           if (snapshot.data == null ||
                                               !snapshot.hasData) {
                                             return const IconValueButton(
+                                              color: Colors.amber,
                                               icon: Icon(
                                                   Icons.notifications_outlined),
                                               value: 'Subscribe',
@@ -147,6 +150,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                                             bool isSubscribed =
                                                 snapshot.data['subscribed'];
                                             return IconValueButton(
+                                              color: Colors.amber,
                                               icon: isSubscribed
                                                   ? const Icon(
                                                       Icons.notifications)
@@ -177,6 +181,20 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                                         }),
                                   ],
                                 )
+                              : Container(),
+                          (article.author.id == userProvider.user.id)
+                              ? Row(children: [
+                                  IconValueButton(
+                                      color: Colors.red,
+                                      icon: const Icon(Icons.delete),
+                                      value: 'Delete',
+                                      onPressed: () {
+                                        deleteArticleById(request, article.id)
+                                            .then((value) {
+                                          Navigator.pop(context);
+                                        });
+                                      }),
+                                ])
                               : Container(),
                         ],
                       ),
@@ -273,11 +291,12 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                                                 snapshot.data!.length == 0) {
                                               return Column(
                                                 children: const [
+                                                  SizedBox(height: 8),
                                                   Text(
-                                                    'No Articles Found',
+                                                    'No Comment Found',
                                                     style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 20),
+                                                      color: Colors.black,
+                                                    ),
                                                   ),
                                                   SizedBox(height: 8),
                                                 ],
@@ -291,14 +310,32 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                                                 itemCount: commentList.length,
                                                 itemBuilder: (_, index) =>
                                                     CommentBox(
-                                                  name: commentList[index]
-                                                      .user
-                                                      .name,
-                                                  createdAt: commentList[index]
-                                                      .createdAt
-                                                      .toString(),
-                                                  body: commentList[index].body,
-                                                ),
+                                                        name: commentList[index]
+                                                            .user
+                                                            .name,
+                                                        createdAt:
+                                                            commentList[index]
+                                                                .createdAt
+                                                                .toString(),
+                                                        body: commentList[index]
+                                                            .body,
+                                                        showDelete:
+                                                            (commentList[index]
+                                                                    .user
+                                                                    .id ==
+                                                                userProvider
+                                                                    .user.id),
+                                                        onDelete: () {
+                                                          deleteArticleComment(
+                                                                  request,
+                                                                  article.id,
+                                                                  commentList[
+                                                                          index]
+                                                                      .id)
+                                                              .then((value) {
+                                                            setState(() {});
+                                                          });
+                                                        }),
                                                 scrollDirection: Axis.vertical,
                                                 shrinkWrap: true,
                                               );

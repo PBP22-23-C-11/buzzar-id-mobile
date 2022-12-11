@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
         Provider<UserProvider>(create: (_) {
           UserProvider userProvider = UserProvider(
               user: User(
+                  id: 0,
                   username: 'guest',
                   name: 'Guest',
                   type: 'guest',
