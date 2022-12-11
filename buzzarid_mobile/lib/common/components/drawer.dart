@@ -1,8 +1,11 @@
 import 'package:buzzarid_mobile/common/providers/user_provider.dart';
+import 'package:buzzarid_mobile/products/page/product_detail.dart';
+import 'package:buzzarid_mobile/products/page/product_form.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 
+import '../../products/page/product_show.dart';
 import '../models/user.dart';
 
 class AppDrawer extends StatefulWidget {
@@ -109,6 +112,15 @@ class _AppDrawerState extends State<AppDrawer> {
             title: const Text('Home'),
             onTap: () {
               Navigator.pushReplacementNamed(context, '/');
+            },
+          ),
+          ListTile(
+            title: const Text("Product"),
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => MyProductPage()),
+              );
             },
           ),
         ],
