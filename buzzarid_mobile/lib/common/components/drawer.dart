@@ -1,4 +1,5 @@
 import 'package:buzzarid_mobile/common/providers/user_provider.dart';
+import 'package:buzzarid_mobile/obrolan/page/obrolan_home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
@@ -109,6 +110,16 @@ class _AppDrawerState extends State<AppDrawer> {
             title: const Text('Home'),
             onTap: () {
               Navigator.pushReplacementNamed(context, '/');
+            },
+          ),
+          ListTile(
+            title: const Text('Obrolan'),
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ObrolanHomePage()),
+              );
             },
           ),
         ],
