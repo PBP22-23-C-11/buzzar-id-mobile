@@ -1,4 +1,5 @@
 import 'package:buzzarid_mobile/common/providers/user_provider.dart';
+import 'package:buzzarid_mobile/obrolan/page/obrolan_home.dart';
 import 'package:buzzarid_mobile/products/page/product_detail.dart';
 import 'package:buzzarid_mobile/products/page/product_form.dart';
 import 'package:flutter/material.dart';
@@ -89,7 +90,7 @@ class _AppDrawerState extends State<AppDrawer> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: (userProvider.user.isGuest)
                           ? Colors.white
-                          : Colors.red,
+                          : Color.fromARGB(255, 248, 81, 69),
                     ),
                     onPressed: () async {
                       Navigator.pop(context);
@@ -160,6 +161,12 @@ class _AppDrawerState extends State<AppDrawer> {
             },
           ),
           ListTile(
+            title: const Text('Lomba'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/lomba');
+            },
+          ),
+          ListTile(
             title: const Text("Showcase"),
             onTap: () {
               Navigator.push(
@@ -180,6 +187,16 @@ class _AppDrawerState extends State<AppDrawer> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => MyProductPage()),
+              );
+            },
+          ),
+          ListTile(
+            title: const Text('Obrolan'),
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ObrolanHomePage()),
               );
             },
           ),
