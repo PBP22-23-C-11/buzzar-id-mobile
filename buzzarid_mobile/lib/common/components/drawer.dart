@@ -22,7 +22,6 @@ class _AppDrawerState extends State<AppDrawer> {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     final userProvider = context.watch<UserProvider>();
-    print(userProvider.user.type);
     return Drawer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -55,6 +54,7 @@ class _AppDrawerState extends State<AppDrawer> {
                               (userProvider.user.type != 'None')
                                   ? userProvider.user.name
                                   : userProvider.user.username,
+                              textAlign: TextAlign.center,
                               style: const TextStyle(
                                 fontSize: 24.0,
                               ),

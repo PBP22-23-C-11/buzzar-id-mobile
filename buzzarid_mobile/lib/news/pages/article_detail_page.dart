@@ -87,100 +87,123 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                           TextTitleContent(
                               title: 'Created At', content: article.createdAt),
                           (userProvider.user.type == 'Customer')
-                              ? Row(
-                                  children: [
-                                    FutureBuilder(
-                                        future: checkLike(request, article.id),
-                                        builder:
-                                            (context, AsyncSnapshot snapshot) {
-                                          if (snapshot.data == null ||
-                                              !snapshot.hasData) {
-                                            return const IconValueButton(
-                                              color: Colors.amber,
-                                              icon:
-                                                  Icon(Icons.thumb_up_outlined),
-                                              value: '0',
-                                              onPressed: null,
-                                            );
-                                          } else {
-                                            bool isLiked =
-                                                snapshot.data['liked'];
-                                            return IconValueButton(
-                                              color: Colors.amber,
-                                              icon: (isLiked)
-                                                  ? const Icon(Icons.thumb_up)
-                                                  : const Icon(
-                                                      Icons.thumb_up_outlined),
-                                              value: '${article.likes}',
-                                              onPressed: () {
-                                                toggleLike(request, article.id)
-                                                    .then((value) {
-                                                  if (value) {
-                                                    setState(() {});
-                                                  } else {
-                                                    ScaffoldMessenger.of(
-                                                            context)
-                                                        .showSnackBar(
-                                                            const SnackBar(
-                                                      content: Text(
-                                                          'Couldn\'t connect to server'),
-                                                    ));
-                                                  }
-                                                });
-                                              },
-                                            );
-                                          }
-                                        }),
-                                    const SizedBox(width: 8.0),
-                                    FutureBuilder(
-                                        future: checkSubscribe(
-                                            request, article.author.id),
-                                        builder:
-                                            (context, AsyncSnapshot snapshot) {
-                                          if (snapshot.data == null ||
-                                              !snapshot.hasData) {
-                                            return const IconValueButton(
-                                              color: Colors.amber,
-                                              icon: Icon(
-                                                  Icons.notifications_outlined),
-                                              value: 'Subscribe',
-                                              onPressed: null,
-                                            );
-                                          } else {
-                                            bool isSubscribed =
-                                                snapshot.data['subscribed'];
-                                            return IconValueButton(
-                                              color: Colors.amber,
-                                              icon: isSubscribed
-                                                  ? const Icon(
-                                                      Icons.notifications)
-                                                  : const Icon(Icons
-                                                      .notifications_outlined),
-                                              value: (isSubscribed)
-                                                  ? 'Subscribed'
-                                                  : 'Subscribe',
-                                              onPressed: () {
-                                                toggleSubscribe(request,
-                                                        article.author.id)
-                                                    .then((value) {
-                                                  if (value) {
-                                                    setState(() {});
-                                                  } else {
-                                                    ScaffoldMessenger.of(
-                                                            context)
-                                                        .showSnackBar(
-                                                            const SnackBar(
-                                                      content: Text(
-                                                          'Couldn\'t connect to server'),
-                                                    ));
-                                                  }
-                                                });
-                                              },
-                                            );
-                                          }
-                                        }),
-                                  ],
-                                )
+                              ? SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    children: [
+                                      FutureBuilder(
+                                          future:
+                                              checkLike(request, article.id),
+                                          builder: (context,
+                                              AsyncSnapshot snapshot) {
+                                            if (snapshot.data == null ||
+                                                !snapshot.hasData) {
+                                              return const IconValueButton(
+                                                color: Colors.amber,
+                                                icon: Icon(
+                                                    Icons.thumb_up_outlined),
+                                                value: '0',
+                                                onPressed: null,
+                                              );
+                                            } else {
+                                              bool isLiked =
+                                                  snapshot.data['liked'];
+                                              return IconValueButton(
+                                                color: Colors.amber,
+                                                icon: (isLiked)
+                                                    ? const Icon(Icons.thumb_up)
+                                                    : const Icon(Icons
+                                                        .thumb_up_outlined),
+                                                value: '${article.likes}',
+                                                onPressed: () {
+                                                  toggleLike(
+                                                          request, article.id)
+                                                      .then((value) {
+                                                    if (value) {
+                                                      setState(() {});
+                                                    } else {
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                              const SnackBar(
+                                                        content: Text(
+                                                            'Couldn\'t connect to server'),
+                                                      ));
+                                                    }
+                                                  });
+                                                },
+                                              );
+                                            }
+                                          }),
+                                      const SizedBox(width: 8.0),
+                                      FutureBuilder(
+                                          future: checkSubscribeable(
+                                              request, article.author.id),
+                                          builder: (context,
+                                              AsyncSnapshot snapshot) {
+                                            if (snapshot.data == null ||
+                                                !snapshot.hasData) {
+                                              return Container();
+                                            } else {
+                                              if (snapshot.data! == false) {
+                                                return Container();
+                                              }
+                                              return FutureBuilder(
+                                                  future: checkSubscribe(
+                                                      request,
+                                                      article.author.id),
+                                                  builder: (context,
+                                                      AsyncSnapshot snapshot) {
+                                                    if (snapshot.data == null ||
+                                                        !snapshot.hasData) {
+                                                      return const IconValueButton(
+                                                        color: Colors.amber,
+                                                        icon: Icon(Icons
+                                                            .notifications_outlined),
+                                                        value: 'Subscribe',
+                                                        onPressed: null,
+                                                      );
+                                                    } else {
+                                                      bool isSubscribed =
+                                                          snapshot.data[
+                                                              'subscribed'];
+                                                      return IconValueButton(
+                                                        color: Colors.amber,
+                                                        icon: isSubscribed
+                                                            ? const Icon(Icons
+                                                                .notifications)
+                                                            : const Icon(Icons
+                                                                .notifications_outlined),
+                                                        value: (isSubscribed)
+                                                            ? 'Subscribed'
+                                                            : 'Subscribe',
+                                                        onPressed: () {
+                                                          toggleSubscribe(
+                                                                  request,
+                                                                  article.author
+                                                                      .id)
+                                                              .then((value) {
+                                                            if (value) {
+                                                              setState(() {});
+                                                            } else {
+                                                              ScaffoldMessenger
+                                                                      .of(
+                                                                          context)
+                                                                  .showSnackBar(
+                                                                      const SnackBar(
+                                                                content: Text(
+                                                                    'Couldn\'t connect to server'),
+                                                              ));
+                                                            }
+                                                          });
+                                                        },
+                                                      );
+                                                    }
+                                                  });
+                                            }
+                                          }),
+                                    ],
+                                  ))
                               : Container(),
                           (article.author.id == userProvider.user.id)
                               ? Row(children: [

@@ -28,6 +28,7 @@ class _NewsPageState extends State<NewsPage> {
   String _titleTemp = '';
   String _author = '';
   String _authorTemp = '';
+  String _authorType = 'name';
   String _sortByAttribute = 'date';
   String _sortByDirection = 'desc';
 
@@ -37,7 +38,7 @@ class _NewsPageState extends State<NewsPage> {
     final userProvider = context.watch<UserProvider>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: const Text('News'),
       ),
       drawer: const AppDrawer(),
       body: SingleChildScrollView(
@@ -139,19 +140,85 @@ class _NewsPageState extends State<NewsPage> {
                             _titleTemp = value!;
                           },
                         ),
-                        const SizedBox(height: 12.0),
-                        TextFormField(
-                          decoration: const InputDecoration(
-                            labelText: 'Author',
-                            border: OutlineInputBorder(),
-                          ),
-                          onChanged: (String? value) {
-                            _authorTemp = value!;
-                          },
-                          onSaved: (String? value) {
-                            _authorTemp = value!;
-                          },
-                        ),
+                        (_category == 'UMKM')
+                            ? Column(
+                                children: [
+                                  const SizedBox(height: 12.0),
+                                  TextFormField(
+                                    decoration: const InputDecoration(
+                                      labelText: 'Author',
+                                      border: OutlineInputBorder(),
+                                    ),
+                                    onChanged: (String? value) {
+                                      _authorTemp = value!;
+                                    },
+                                    onSaved: (String? value) {
+                                      _authorTemp = value!;
+                                    },
+                                  ),
+                                  const SizedBox(height: 8.0),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Flexible(
+                                        flex: 1,
+                                        fit: FlexFit.tight,
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 4.0),
+                                          child: TextButton(
+                                            style: TextButton.styleFrom(
+                                              backgroundColor:
+                                                  _authorType == 'name'
+                                                      ? Colors.amber
+                                                      : Colors.transparent,
+                                            ),
+                                            onPressed: () {
+                                              setState(() {
+                                                _authorType = 'name';
+                                              });
+                                            },
+                                            child: const Text(
+                                              'Name',
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Flexible(
+                                        flex: 1,
+                                        fit: FlexFit.tight,
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 4.0),
+                                          child: TextButton(
+                                            style: TextButton.styleFrom(
+                                              backgroundColor:
+                                                  _authorType == 'username'
+                                                      ? Colors.amber
+                                                      : Colors.transparent,
+                                            ),
+                                            onPressed: () {
+                                              setState(() {
+                                                _authorType = 'username';
+                                              });
+                                            },
+                                            child: const Text(
+                                              'Username',
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              )
+                            : Container(),
                         const SizedBox(height: 8.0),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
@@ -248,6 +315,7 @@ class _NewsPageState extends State<NewsPage> {
                       request,
                       _title,
                       _author,
+                      _authorType,
                       '${_sortByAttribute}_$_sortByDirection',
                       categoryMap[_category]!),
                   builder: (context, AsyncSnapshot snapshot) {
