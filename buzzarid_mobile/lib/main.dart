@@ -12,7 +12,7 @@ import 'package:buzzarid_mobile/common/page/register_two_page.dart';
 
 import 'package:buzzarid_mobile/news/pages/news_page.dart';
 import 'package:buzzarid_mobile/lomba/page/home_lomba.dart';
-import 'package:buzzarid_mobile/showcase/pages/showcase.dart';
+import 'package:buzzarid_mobile/showcase/pages/showcaseHome.dart';
 import 'package:buzzarid_mobile/obrolan/page/obrolan_home.dart';
 import 'package:buzzarid_mobile/products/page/product_show.dart';
 
@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
           '/login': (BuildContext context) => const LoginPage(),
           '/lomba': (BuildContext context) => const HomeLomba(),
           '/news': (BuildContext context) => const NewsPage(),
-          '/showcase': (BuildContext context) => const ShowcasePage(),
+          '/showcase': (BuildContext context) => const ShowcaseHome(),
           '/obrolan': (BuildContext context) => const ObrolanHomePage(),
           '/products': (BuildContext context) => const MyProductPage(),
           '/news/post': (BuildContext context) => const ArticlePostPage(),
