@@ -189,7 +189,8 @@ class _RegisterTwoPageState extends State<RegisterTwoPage> {
                           fetchUser(request, userProvider.user.id)
                               .then(((value) {
                             userProvider.user = value;
-                            Navigator.pop(context);
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, '/', (route) => false);
                           }));
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -208,7 +209,8 @@ class _RegisterTwoPageState extends State<RegisterTwoPage> {
                           fetchUser(request, userProvider.user.id)
                               .then(((value) {
                             userProvider.user = value;
-                            Navigator.pop(context);
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, '/', (route) => false);
                           }));
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
