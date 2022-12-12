@@ -1,14 +1,9 @@
 import 'package:buzzarid_mobile/common/providers/user_provider.dart';
-import 'package:buzzarid_mobile/obrolan/page/obrolan_home.dart';
-import 'package:buzzarid_mobile/products/page/product_detail.dart';
-import 'package:buzzarid_mobile/products/page/product_form.dart';
 import 'package:flutter/material.dart';
-import 'package:buzzarid_mobile/showcase/pages/showcase.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 
-import '../../products/page/product_show.dart';
-import '../models/user.dart';
+import 'package:buzzarid_mobile/common/models/user.dart';
 
 class AppDrawer extends StatefulWidget {
   const AppDrawer({super.key});
@@ -135,7 +130,9 @@ class _AppDrawerState extends State<AppDrawer> {
                     ),
                   ),
                   (userProvider.user.isGuest)
-                      ? ElevatedButton(
+                      ? Padding(
+                        padding: const EdgeInsets.only(top: 10.0),
+                        child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
                           ),
@@ -149,7 +146,8 @@ class _AppDrawerState extends State<AppDrawer> {
                               color: Colors.black,
                             ),
                           ),
-                        )
+                        ),
+                      )
                       : Container(),
                   const SizedBox(height: 12.0),
                 ],
@@ -163,18 +161,21 @@ class _AppDrawerState extends State<AppDrawer> {
             },
           ),
           ListTile(
-            title: const Text('Lomba'),
+            title: const Text("Showcase"),
             onTap: () {
-              Navigator.pushReplacementNamed(context, '/lomba');
+              Navigator.pushReplacementNamed(context, '/showcase');
             },
           ),
           ListTile(
-            title: const Text("Showcase"),
+            title: const Text("Product"),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ShowcasePage()),
-              );
+              Navigator.pushReplacementNamed(context, '/products');
+            },
+          ),
+          ListTile(
+            title: const Text('Obrolan'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/obrolan');
             },
           ),
           ListTile(
@@ -184,22 +185,9 @@ class _AppDrawerState extends State<AppDrawer> {
             },
           ),
           ListTile(
-            title: const Text("Product"),
+            title: const Text('Lomba'),
             onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => MyProductPage()),
-              );
-            },
-          ),
-          ListTile(
-            title: const Text('Obrolan'),
-            onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const ObrolanHomePage()),
-              );
+              Navigator.pushReplacementNamed(context, '/lomba');
             },
           ),
         ],
