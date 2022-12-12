@@ -2,8 +2,8 @@ import 'package:buzzarid_mobile/common/models/user.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 
 Future<User> fetchUser(CookieRequest request) async {
-  User user =
-      User(username: 'guest', name: 'Guest', type: 'guest', isGuest: true);
+  User user = User(
+      id: 0, username: 'guest', name: 'Guest', type: 'guest', isGuest: true);
 
   try {
     final response =
