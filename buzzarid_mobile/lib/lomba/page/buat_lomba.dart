@@ -87,7 +87,11 @@ class _BuatLombaState extends State<BuatLomba> {
                   ElevatedButton(
                     onPressed: () {
                       if (_nama == '' || _ket == '') {
-                        print("error");
+                        final snackBar = SnackBar(
+                          content: Text("Gagal membuat lomba, silahkan cek isian Anda"),
+                        );
+
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       } else {
                         sendLomba(_nama, _ket);
                         Navigator.pop(context);

@@ -113,7 +113,6 @@ class _LombaPageState extends State<LombaPage> {
                             color: Colors.amber,
                             onPressed: () {
                               filteredLomba();
-                              print(myController.text);
                             },
                             splashRadius: 20.0,
                           ),
