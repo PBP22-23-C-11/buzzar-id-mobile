@@ -93,10 +93,12 @@ class _AppDrawerState extends State<AppDrawer> {
                           : Color.fromARGB(255, 248, 81, 69),
                     ),
                     onPressed: () async {
-                      Navigator.pop(context);
                       if (userProvider.user.isGuest) {
+                        Navigator.pop(context);
                         Navigator.pushNamed(context, '/login');
                       } else {
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, '/', (route) => false);
                         Map<String, dynamic> response = {};
                         try {
                           response = await request.logout(
