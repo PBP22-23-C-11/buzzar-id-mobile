@@ -22,6 +22,7 @@ class _AppDrawerState extends State<AppDrawer> {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     final userProvider = context.watch<UserProvider>();
+    print(userProvider.user.type);
     return Drawer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -51,15 +52,40 @@ class _AppDrawerState extends State<AppDrawer> {
                       : Column(
                           children: [
                             Text(
-                              userProvider.user.name,
+                              (userProvider.user.type != 'None')
+                                  ? userProvider.user.name
+                                  : userProvider.user.username,
                               style: const TextStyle(
                                 fontSize: 24.0,
                               ),
                             ),
-                            Text(userProvider.user.type),
+                            (userProvider.user.type != 'None')
+                                ? Text(userProvider.user.type)
+                                : Container(),
                           ],
                         ),
-                  const SizedBox(height: 12.0),
+                  (userProvider.user.type == 'None')
+                      ? Column(
+                          children: [
+                            const SizedBox(height: 8.0),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                              ),
+                              onPressed: () async {
+                                Navigator.pop(context);
+                                Navigator.pushNamed(context, '/register/2');
+                              },
+                              child: const Text(
+                                'Choose Role',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ),
+                              ),
+                            )
+                          ],
+                        )
+                      : const SizedBox(height: 12.0),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: (userProvider.user.isGuest)
@@ -106,6 +132,23 @@ class _AppDrawerState extends State<AppDrawer> {
                       ),
                     ),
                   ),
+                  (userProvider.user.isGuest)
+                      ? ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                          ),
+                          onPressed: () async {
+                            Navigator.pop(context);
+                            Navigator.pushNamed(context, '/register/1');
+                          },
+                          child: const Text(
+                            'Register',
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                          ),
+                        )
+                      : Container(),
                   const SizedBox(height: 12.0),
                 ],
               ),
