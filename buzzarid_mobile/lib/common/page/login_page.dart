@@ -129,6 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.pop(context);
                   } else {
                     userProvider.user = User(
+                        id: 0,
                         username: 'guest',
                         name: 'Guest',
                         type: 'guest',
