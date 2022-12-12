@@ -3,7 +3,7 @@ import 'package:buzzarid_mobile/obrolan/page/obrolan_home.dart';
 import 'package:buzzarid_mobile/products/page/product_detail.dart';
 import 'package:buzzarid_mobile/products/page/product_form.dart';
 import 'package:flutter/material.dart';
-import 'package:buzzarid_mobile/showcase/pages/showcase.dart';
+import 'package:buzzarid_mobile/showcase/pages/showcaseHome.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 
@@ -173,7 +173,7 @@ class _AppDrawerState extends State<AppDrawer> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const ShowcasePage()),
+                MaterialPageRoute(builder: (context) => const ShowcaseHome()),
               );
             },
           ),
