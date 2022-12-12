@@ -1,9 +1,13 @@
 import 'package:buzzarid_mobile/common/providers/user_provider.dart';
+import 'package:buzzarid_mobile/obrolan/page/obrolan_home.dart';
+import 'package:buzzarid_mobile/products/page/product_detail.dart';
+import 'package:buzzarid_mobile/products/page/product_form.dart';
 import 'package:flutter/material.dart';
 import 'package:buzzarid_mobile/showcase/pages/showcaseHome.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 
+import '../../products/page/product_show.dart';
 import '../models/user.dart';
 
 class AppDrawer extends StatefulWidget {
@@ -47,31 +51,60 @@ class _AppDrawerState extends State<AppDrawer> {
                       : Column(
                           children: [
                             Text(
-                              userProvider.user.name,
+                              (userProvider.user.type != 'None')
+                                  ? userProvider.user.name
+                                  : userProvider.user.username,
+                              textAlign: TextAlign.center,
                               style: const TextStyle(
                                 fontSize: 24.0,
                               ),
                             ),
-                            Text(userProvider.user.type),
+                            (userProvider.user.type != 'None')
+                                ? Text(userProvider.user.type)
+                                : Container(),
                           ],
                         ),
-                  const SizedBox(height: 12.0),
+                  (userProvider.user.type == 'None')
+                      ? Column(
+                          children: [
+                            const SizedBox(height: 8.0),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                              ),
+                              onPressed: () async {
+                                Navigator.pop(context);
+                                Navigator.pushNamed(context, '/register/2');
+                              },
+                              child: const Text(
+                                'Choose Role',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ),
+                              ),
+                            )
+                          ],
+                        )
+                      : const SizedBox(height: 12.0),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: (userProvider.user.isGuest)
                           ? Colors.white
-                          : Colors.red,
+                          : Color.fromARGB(255, 248, 81, 69),
                     ),
                     onPressed: () async {
-                      Navigator.pop(context);
                       if (userProvider.user.isGuest) {
+                        Navigator.pop(context);
                         Navigator.pushNamed(context, '/login');
                       } else {
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, '/', (route) => false);
                         Map<String, dynamic> response = {};
                         try {
                           response = await request.logout(
                               'https://buzzar-id.up.railway.app/api/logout/');
                           userProvider.user = User(
+                              id: 0,
                               username: 'guest',
                               name: 'Guest',
                               type: 'guest',
@@ -101,6 +134,23 @@ class _AppDrawerState extends State<AppDrawer> {
                       ),
                     ),
                   ),
+                  (userProvider.user.isGuest)
+                      ? ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                          ),
+                          onPressed: () async {
+                            Navigator.pop(context);
+                            Navigator.pushNamed(context, '/register/1');
+                          },
+                          child: const Text(
+                            'Register',
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                          ),
+                        )
+                      : Container(),
                   const SizedBox(height: 12.0),
                 ],
               ),
@@ -113,6 +163,12 @@ class _AppDrawerState extends State<AppDrawer> {
             },
           ),
           ListTile(
+            title: const Text('Lomba'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/lomba');
+            },
+          ),
+          ListTile(
             title: const Text("Showcase"),
             onTap: () {
               Navigator.push(
@@ -120,7 +176,32 @@ class _AppDrawerState extends State<AppDrawer> {
                 MaterialPageRoute(builder: (context) => const ShowcaseHome()),
               );
             },
-          )
+          ),
+          ListTile(
+            title: const Text('News'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/news');
+            },
+          ),
+          ListTile(
+            title: const Text("Product"),
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => MyProductPage()),
+              );
+            },
+          ),
+          ListTile(
+            title: const Text('Obrolan'),
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ObrolanHomePage()),
+              );
+            },
+          ),
         ],
       ),
     );

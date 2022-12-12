@@ -33,14 +33,22 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         title: const Text('Login'),
       ),
-      body: Form(
-        key: _loginFormKey,
-        child: SingleChildScrollView(
+      body: Center(
+        child: Form(
+          key: _loginFormKey,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // Images
+              Padding(
+                padding:
+                    const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 8.0),
+                child: Image.asset('assets/images/LOGO5.png', height: 200),
+              ),
               // Username
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding:
+                    const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 8.0),
                 child: TextFormField(
                   decoration: InputDecoration(
                     labelText: "Username",
@@ -69,7 +77,8 @@ class _LoginPageState extends State<LoginPage> {
               ),
               // Password
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(
+                    left: 20.0, right: 20.0, bottom: 15.0),
                 child: TextFormField(
                   obscureText: !isPasswordVisible,
                   enableSuggestions: false,
@@ -120,9 +129,11 @@ class _LoginPageState extends State<LoginPage> {
                   if (!mounted) return;
                   if (request.loggedIn) {
                     userProvider.user = User.fromJson(response['data']);
-                    Navigator.pop(context);
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, '/', (route) => false);
                   } else {
                     userProvider.user = User(
+                        id: 0,
                         username: 'guest',
                         name: 'Guest',
                         type: 'guest',
