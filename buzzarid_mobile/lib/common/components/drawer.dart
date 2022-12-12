@@ -64,7 +64,7 @@ class _AppDrawerState extends State<AppDrawer> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: (userProvider.user.isGuest)
                           ? Colors.white
-                          : Colors.red,
+                          : Color.fromARGB(255, 248, 81, 69),
                     ),
                     onPressed: () async {
                       Navigator.pop(context);
@@ -115,6 +115,12 @@ class _AppDrawerState extends State<AppDrawer> {
             title: const Text('Home'),
             onTap: () {
               Navigator.pushReplacementNamed(context, '/');
+            },
+          ),
+          ListTile(
+            title: const Text('Lomba'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/lomba');
             },
           ),
           ListTile(
