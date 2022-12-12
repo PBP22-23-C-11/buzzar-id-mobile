@@ -206,18 +206,20 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                                   ))
                               : Container(),
                           (article.author.id == userProvider.user.id)
-                              ? Row(children: [
-                                  IconValueButton(
-                                      color: Colors.red,
-                                      icon: const Icon(Icons.delete),
-                                      value: 'Delete',
-                                      onPressed: () {
-                                        deleteArticleById(request, article.id)
-                                            .then((value) {
-                                          Navigator.pop(context);
-                                        });
-                                      }),
-                                ])
+                              ? SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(children: [
+                                    IconValueButton(
+                                        color: Colors.red,
+                                        icon: const Icon(Icons.delete),
+                                        value: 'Delete',
+                                        onPressed: () {
+                                          deleteArticleById(request, article.id)
+                                              .then((value) {
+                                            Navigator.pop(context);
+                                          });
+                                        }),
+                                  ]))
                               : Container(),
                         ],
                       ),
