@@ -1,4 +1,5 @@
 import 'package:buzzarid_mobile/common/components/drawer.dart';
+import 'package:buzzarid_mobile/products/page/product_detail.dart';
 import 'package:buzzarid_mobile/products/page/product_show.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -145,7 +146,7 @@ class _MyProductFormPageState extends State<MyProductFormPage> {
                             },
                             validator: (String? value) {
                               if (value == null || value.isEmpty) {
-                                return "'Price' cannot empty!";
+                                return "'Product Price' cannot empty!";
                               }
                               return null;
                             },
@@ -174,7 +175,7 @@ class _MyProductFormPageState extends State<MyProductFormPage> {
                             },
                             validator: (String? value) {
                               if (value == null || value.isEmpty) {
-                                return "'Price' cannot empty!";
+                                return "'Product Description' cannot empty!";
                               }
                               return null;
                             },
@@ -200,6 +201,98 @@ class _MyProductFormPageState extends State<MyProductFormPage> {
                               price.toString(),
                               description,
                             );
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return Dialog(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      elevation: 15,
+                                      child: Container(
+                                          child: ListView(
+                                        padding: const EdgeInsets.all(20.0),
+                                        shrinkWrap: true,
+                                        children: [
+                                          const Icon(
+                                            Icons.check_rounded,
+                                            color: Colors.green,
+                                            size: 50,
+                                          ),
+                                          const Center(
+                                            child: Text(
+                                              "Succesfully Added",
+                                              style: TextStyle(
+                                                  color: Colors.green,
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 20),
+                                            ),
+                                          ),
+                                          const SizedBox(height: 20),
+                                          ElevatedButton.icon(
+                                            icon: const Icon(Icons
+                                                .featured_play_list_rounded),
+                                            label:
+                                                const Text("See your Product"),
+                                            style: ElevatedButton.styleFrom(
+                                              onPrimary: Colors.white,
+                                              primary: Colors.amber,
+                                              padding:
+                                                  const EdgeInsets.all(18.0),
+                                            ),
+                                            onPressed: () {
+                                              Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const MyProductDetailPage()),
+                                              );
+                                            },
+                                          ),
+                                          const SizedBox(height: 10),
+                                          ElevatedButton.icon(
+                                            icon: const Icon(Icons.add_rounded),
+                                            label: const Text(
+                                                "Add Another Product"),
+                                            style: ElevatedButton.styleFrom(
+                                              onPrimary: Colors.white,
+                                              primary: Colors.amber,
+                                              padding:
+                                                  const EdgeInsets.all(18.0),
+                                            ),
+                                            onPressed: () {
+                                              Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const MyProductFormPage()),
+                                              );
+                                            },
+                                          ),
+                                          const SizedBox(height: 10),
+                                          ElevatedButton.icon(
+                                            icon: const Icon(Icons
+                                                .arrow_back_ios_new_rounded),
+                                            label: const Text(
+                                                "Back to Product Page"),
+                                            style: ElevatedButton.styleFrom(
+                                              onPrimary: Colors.white,
+                                              primary: Colors.amber,
+                                              padding:
+                                                  const EdgeInsets.all(18.0),
+                                            ),
+                                            onPressed: () {
+                                              Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const MyProductPage()),
+                                              );
+                                            },
+                                          ),
+                                        ],
+                                      )));
+                                });
                           }
                         })),
               ]))),

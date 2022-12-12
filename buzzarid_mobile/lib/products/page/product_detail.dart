@@ -67,7 +67,7 @@ class _MyProductDetailPageState extends State<MyProductDetailPage> {
                                 color: Colors.amber,
                                 width: 2.0,
                               ),
-                              borderRadius: BorderRadius.circular(5.0),
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
                             child: Column(children: [
                               ListTile(
