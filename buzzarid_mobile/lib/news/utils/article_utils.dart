@@ -2,11 +2,11 @@ import 'package:buzzarid_mobile/news/models/article.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 
 Future<List<Article>> fetchArticleList(CookieRequest request, String title,
-    String author, String sortBy, String category) async {
+    String author, String authorType, String sortBy, String category) async {
   List<Article> articleList = [];
   try {
     String url =
-        'https://buzzar-id.up.railway.app/news/api/article?title=$title&sort_by=$sortBy&category=$category&umkm=$author&umkm_type=name';
+        'https://buzzar-id.up.railway.app/news/api/article?title=$title&sort_by=$sortBy&category=$category&umkm=$author&umkm_type=$authorType';
     final response = await request.get(url);
     for (var article in response['articles']) {
       articleList.add(Article.fromJson(article));
@@ -109,4 +109,17 @@ Future<dynamic> checkSubscribe(CookieRequest request, int authorId) async {
     // Pass
   }
   return null;
+}
+
+Future<bool> checkSubscribeable(CookieRequest request, int authorId) async {
+  try {
+    String url = 'https://buzzar-id.up.railway.app/api/user-data/$authorId/';
+    final response = await request.get(url);
+    if (response.containsKey('type')) {
+      return response['type'] == 'UMKM';
+    }
+  } catch (error) {
+    // Pass
+  }
+  return false;
 }

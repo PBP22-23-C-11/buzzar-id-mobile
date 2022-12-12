@@ -32,13 +32,16 @@ class CommentBox extends StatelessWidget {
               Text(name),
               Text(createdAt),
               (showDelete)
-                  ? Row(children: [
-                      IconValueButton(
-                          color: Colors.red,
-                          icon: const Icon(Icons.delete),
-                          value: 'Delete',
-                          onPressed: onDelete),
-                    ])
+                  ? SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(children: [
+                        IconValueButton(
+                            color: Colors.red,
+                            icon: const Icon(Icons.delete),
+                            value: 'Delete',
+                            onPressed: onDelete),
+                      ]),
+                    )
                   : Container(),
               const SizedBox(height: 8.0),
               Text(body),

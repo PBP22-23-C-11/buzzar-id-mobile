@@ -131,7 +131,8 @@ class _RegisterOnePageState extends State<RegisterOnePage> {
                         .then((value) {
                       if (!mounted) return;
                       if (value['success']) {
-                        Navigator.pop(context);
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, '/', (route) => false);
                         ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(
                           content: Text('User Registered'),
