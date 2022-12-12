@@ -1,4 +1,5 @@
 import 'package:buzzarid_mobile/common/providers/user_provider.dart';
+import 'package:buzzarid_mobile/obrolan/page/obrolan_home.dart';
 import 'package:buzzarid_mobile/products/page/product_detail.dart';
 import 'package:buzzarid_mobile/products/page/product_form.dart';
 import 'package:flutter/material.dart';
@@ -137,6 +138,16 @@ class _AppDrawerState extends State<AppDrawer> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => MyProductPage()),
+              );
+            },
+          ),
+          ListTile(
+            title: const Text('Obrolan'),
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ObrolanHomePage()),
               );
             },
           ),
