@@ -42,12 +42,12 @@ class _MyProductPageState extends State<MyProductPage> {
                   textScaleFactor: 2.0,
                   style: TextStyle(
                       color: Colors.amber,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w700,
                       fontSize: 15.0),
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  "UMKM are productive businesses owned by individuals or business entities that have met the requirements as micro businesses.  Basically, UMKM are businesses carried out by individuals, groups, small business entities, and households.  The existence of UMKM in Indonesia is taken into account, because they contribute greatly to economic growth.",
+                  "UMKM are productive businesses owned by individuals or business entities that have met the requirements as micro businesses. The existence of UMKM in Indonesia is taken into account, because they contribute greatly to economic growth.",
                   textAlign: TextAlign.center,
                   textScaleFactor: 2.0,
                   style: TextStyle(
@@ -84,8 +84,8 @@ class _MyProductPageState extends State<MyProductPage> {
                       );
                     },
                   ),
+                  const SizedBox(height: 20),
                 ],
-                const SizedBox(height: 20),
                 if (userProvider.user.type == 'UMKM' ||
                     userProvider.user.type == 'Customer' ||
                     userProvider.user.type == 'Admin') ...[
@@ -105,8 +105,8 @@ class _MyProductPageState extends State<MyProductPage> {
                       );
                     },
                   ),
+                  const SizedBox(height: 20),
                 ],
-                const SizedBox(height: 20),
               ],
             ))));
   }
