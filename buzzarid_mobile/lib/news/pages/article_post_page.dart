@@ -35,6 +35,7 @@ class _ArticlePostPageState extends State<ArticlePostPage> {
                   padding: EdgeInsets.all(8.0),
                   child: Text(
                     'Post Article',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
