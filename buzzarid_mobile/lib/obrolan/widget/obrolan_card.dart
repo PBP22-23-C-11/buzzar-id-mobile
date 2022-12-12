@@ -19,42 +19,32 @@ class ObrolanCard extends StatelessWidget {
       title: Text(obrln.fields.title),
       leading: Container(
           child: username == obrln.fields.username
-              ? SizedBox(
-                  width: 50, // <-- Your width
-                  height: 30, // <-- Your height
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                          const Color.fromARGB(255, 255, 0, 0)),
-                    ),
-                    onPressed: () async {
-                      await request.post(
-                          "https://buzzar-id.up.railway.app/obrolan/delete-disc/${obrln.pk.toString()}/",
-                          {}).then((value) {
-                        if (value != null) {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content: Text("Delete success!"),
-                          ));
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const ObrolanHomePage()),
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content: Text("An Error Occured"),
-                          ));
-                        }
-                      });
-                    },
-                    child: const Text(
-                      "Un\nsend",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 8, color: Colors.white),
-                    ),
-                  ))
+              ? IconButton(
+                  icon: const Icon(Icons.delete),
+                  color: Colors.red,
+                  onPressed: () async {
+                    await request.post(
+                        "https://buzzar-id.up.railway.app/obrolan/delete-disc/${obrln.pk.toString()}/",
+                        {}).then((value) {
+                      if (value != null) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text("Delete success!"),
+                        ));
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ObrolanHomePage()),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text("An Error Occured"),
+                        ));
+                      }
+                    });
+                  },
+                )
               : const Icon(Icons.chat_outlined)),
       subtitle: Text('Pesan : ${obrln.fields.message}'),
       trailing: Text(
