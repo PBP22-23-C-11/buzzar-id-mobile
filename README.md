@@ -43,7 +43,7 @@ Pengguna yang login dibagi menjadi 2, pemilik UMKM dan _customer_.
 Hanya memiliki _basic features_:
 1) Membaca artikel berita
 2) Melihat _showcase_ UMKM
-3) Melihat produk-produk UMKM
+3) Melihat home page produk UMKM
 4) Melihat lomba dan sesuatu yang diikutsertakan ke dalam lomba
 5) Melihat kumpulan diskusi pada suatu UMKM
 
